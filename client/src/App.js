@@ -1,15 +1,27 @@
 // import logo from './logo.svg';
-import React from 'react';
+import React, { useEffect } from 'react';
+import './App.css';
+
 import { Container, AppBar, Typography, Grow, Grid } from "@material-ui/core";
 import memoriesImage from "./images/memories.png";
 import Posts from "./components/Posts/Posts";
 import Form from "./components/Form/Form";
-import './App.css';
+
+import { useDispatch } from 'react-redux';
+import { getPosts } from './actions/posts';
 
 import useStyles from "./styles";
 
 function App() {
   const classes = useStyles();
+  
+  // hook to trigger action
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // calls getPosts action
+    dispatch(getPosts())
+  }, [dispatch]);
 
   return (
     <Container maxWidth="lg">

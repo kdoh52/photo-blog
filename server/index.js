@@ -7,13 +7,14 @@ import postRoutes from './routes/posts.js';
 
 const app = express();
 
-// adding prefix of 'posts' to all posts.js routes
-app.use("/posts", postRoutes);
-
 // including limit to manage large image files
 app.use(bodyParser.json({ limit: '30mb', extended: true }));
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }));
 app.use(cors());
+
+// adding prefix of 'posts' to all posts.js routes
+// MUST SPECIFY ROUTES BELOW CORS
+app.use("/posts", postRoutes);
 
 const CONNECTION_URL = 'mongodb+srv://kdoh:MongoDohB123@cluster0.ut8of.mongodb.net/omdb?retryWrites=true&w=majority';
 const PORT = process.env.PORT || 5000;
