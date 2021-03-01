@@ -22,3 +22,17 @@ export const createPost = async (req, res) => {
         res.status(409).json({ message: error.message })
     }
 }
+
+export const updatePost = async (req, res) => {
+    // destructure req.params.id, also rename to _id
+    const { id: _id } = req.params;
+    const post = req.body;
+    
+    // check if _id is a valid mongodb ID
+    if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No post with that ID')
+
+    // set 'new: true' so we receive updated version of the post
+    const updatedPost = await PostMessage.findByIdAndUpdate(_id, post, { new: true });
+
+    res.json(updatedPost);
+}
