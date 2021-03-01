@@ -16,7 +16,7 @@ app.use(cors());
 // MUST SPECIFY ROUTES BELOW CORS
 app.use("/posts", postRoutes);
 
-const CONNECTION_URL = 'mongodb+srv://kdoh:MongoDohB123@cluster0.ut8of.mongodb.net/omdb?retryWrites=true&w=majority';
+const CONNECTION_URL = 'mongodb+srv://kdoh:MongoDohB123@cluster0.ut8of.mongodb.net/photos?retryWrites=true&w=majority';
 const PORT = process.env.PORT || 5000;
 
 mongoose.connect(CONNECTION_URL, { 
