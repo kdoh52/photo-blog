@@ -1,5 +1,5 @@
 // import logo from './logo.svg';
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Container, AppBar, Typography, Grow, Grid } from "@material-ui/core";
 import memoriesImage from "./images/memories.png";
@@ -13,6 +13,9 @@ import useStyles from "./styles";
 
 function App() {
   const classes = useStyles();
+
+  // hold current ID for updating posts
+  const [currentId, setCurrentId] = useState(null);
   
   // hook to trigger action
   const dispatch = useDispatch();
@@ -32,10 +35,10 @@ function App() {
         <Container>
           <Grid container justify="space-between" alignItems='stretch' spacing={3}>
             <Grid item xs={12} sm={7}>
-              <Posts />
+              <Posts setCurrentId={setCurrentId}/>
             </Grid>
             <Grid item xs={12} sm={4}>
-              <Form />
+              <Form currentId={currentId} setCurrentId={setCurrentId}/>
             </Grid>
           </Grid>
         </Container>
