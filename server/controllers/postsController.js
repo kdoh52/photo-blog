@@ -1,4 +1,5 @@
-import PostMessage from "../models/postMessage.js"
+import mongoose from "mongoose";
+import PostMessage from "../models/postMessage.js";
 
 // async function
 export const getPosts = async (req, res) => {
@@ -32,7 +33,8 @@ export const updatePost = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No post with that ID')
 
     // set 'new: true' so we receive updated version of the post
-    const updatedPost = await PostMessage.findByIdAndUpdate(_id, post, { new: true });
+    // spread post (...post) and pass in ID
+    const updatedPost = await PostMessage.findByIdAndUpdate(_id, { ...post, _id }, { new: true });
 
     res.json(updatedPost);
 }

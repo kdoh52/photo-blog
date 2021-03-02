@@ -14,7 +14,7 @@ export const getPosts = () => async (dispatch) => {
         // payload is equal to all posts in the database
         dispatch({ type: 'FETCH_ALL', payload: data })
     } catch (error) {
-        console.log(error.message);
+        console.log(error);
     }
 }
 
@@ -24,7 +24,7 @@ export const createPost = (post) => async (dispatch) => {
 
         dispatch({ type: "CREATE", payload: data });
     } catch (error) {
-        console.log(error.message);
+        console.log(error);
     }
 }
 

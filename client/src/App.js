@@ -23,7 +23,7 @@ function App() {
   useEffect(() => {
     // calls getPosts action
     dispatch(getPosts())
-  }, [dispatch]);
+  }, [dispatch, currentId]);
 
   return (
     <Container maxWidth="lg">
