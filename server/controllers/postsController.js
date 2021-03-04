@@ -50,3 +50,18 @@ export const deletePost = async (req, res) => {
 
     res.json({ message: 'Post deleted successfully' });
 }
+
+export const likePost = async (req, res) => {
+    // destructure req.params.id, also rename to _id
+    const { id: _id } = req.params;
+    
+    // check if _id is a valid mongodb ID
+    if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No post with that ID')
+
+    // set 'new: true' so we receive updated version of the post
+    // spread post (...post) and pass in ID
+    const post = await PostMessage.findById(_id);
+    const updatedPost = await PostMessage.findByIdAndUpdate(_id, { likeCount: post.likeCount + 1 }, { new: true })
+    
+    res.json(updatedPost);
+}

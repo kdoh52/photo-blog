@@ -7,6 +7,7 @@ export default (state = [], action) => {
         case "CREATE":
             return [ ...state, action.payload ];
         case "UPDATE":
+        case "LIKE":
             // map through posts, if ID matches the payload's ID, return payload, else leave it alone
             return state.map((post) => post._id === action.payload._id ? action.payload : post);
         case "DELETE":
