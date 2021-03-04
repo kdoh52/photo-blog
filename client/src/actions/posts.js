@@ -1,6 +1,9 @@
 // 'import * as' allows to do 'api.fetchPosts'
 import * as api from "../api";
 
+// import constants
+import { CREATE, UPDATE, DELETE, FETCH_ALL, LIKE } from "../constants/actionTypes";
+
 // 'async (dispatch) =>' is possible because of redux-thunk
 
 // ACTION CREATORS
@@ -12,7 +15,7 @@ export const getPosts = () => async (dispatch) => {
 
         // dispatch action to the reducers
         // payload is equal to all posts in the database
-        dispatch({ type: 'FETCH_ALL', payload: data })
+        dispatch({ type: FETCH_ALL, payload: data })
     } catch (error) {
         console.log(error);
     }
@@ -22,7 +25,7 @@ export const createPost = (post) => async (dispatch) => {
     try {
         const { data } = await api.createPost(post);
 
-        dispatch({ type: "CREATE", payload: data });
+        dispatch({ type: CREATE, payload: data });
     } catch (error) {
         console.log(error);
     }
@@ -33,7 +36,7 @@ export const updatePost = (id, post) => async (dispatch) => {
         // returning the updated post 
         const { data } = await api.updatePost(id, post);
 
-        dispatch({ type: "UPDATE", payload: data });
+        dispatch({ type: UPDATE, payload: data });
     } catch (error) {
         console.log(error);
     }
@@ -43,7 +46,7 @@ export const deletePost = (id) => async (dispatch) => {
     try {
         await api.deletePost(id);
 
-        dispatch({ type: "DELETE", payload: id });
+        dispatch({ type: DELETE, payload: id });
     } catch (error) {
         console.log(error);
     }
@@ -53,7 +56,7 @@ export const likePost = (id) => async (dispatch) => {
     try {
         const { data } = await api.likePost(id);
 
-        dispatch({ type: "LIKE", payload: data });
+        dispatch({ type: LIKE, payload: data });
     } catch (error) {
         console.log(error);
     }
