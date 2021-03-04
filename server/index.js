@@ -18,6 +18,10 @@ app.use(cors());
 // MUST SPECIFY ROUTES BELOW CORS
 app.use("/posts", postRoutes);
 
+app.get('/', (req, res) => {
+    res.send('Hello')
+})
+
 const PORT = process.env.PORT || 5000;
 
 mongoose.connect(process.env.CONNECTION_URL, { 
