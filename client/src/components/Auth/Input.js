@@ -16,7 +16,7 @@ export default function Input({ name, handleChange, label, half, autoFocus, type
                 label={label}
                 autoFocus={autoFocus}
                 type={type}
-                InputProps={name === 'password' && {
+                InputProps={name === 'password' ? {
                     endAdornment: (
                         <InputAdornment position="end">
                             <IconButton onClick={handleShowPassword}>
@@ -24,7 +24,7 @@ export default function Input({ name, handleChange, label, half, autoFocus, type
                             </IconButton>
                         </InputAdornment>
                     )
-                }}
+                } : null }
             />
         </Grid>
     )
