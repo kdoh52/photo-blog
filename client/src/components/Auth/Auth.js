@@ -4,25 +4,38 @@ import Input from "./Input";
 import { GoogleLogin } from "react-google-login";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { signup, signin } from "../../actions/auth";
 
 import useStyles from "./styles";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Icon from "./icon";
+
+// ensure the variable names here are same as 'name' props in input fields
+const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' }
 
 export default function Auth() {
     const classes = useStyles();
     const dispatch = useDispatch();
     const history = useHistory();
 
+    const [formData, setFormData] = useState(initialState);
     const [showPassword, setShowPassword] = useState(false);
     const [isSignup, setIsSignup] = useState(false);
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
 
+        // include history to allow for navigation
+        if (isSignup) {
+            dispatch(signup(formData, history));
+        } else {
+            dispatch(signin(formData, history));
+        }
     }
 
-    const handleChange = () => {
-
+    const handleChange = (e) => {
+        // set form data to itself while changing only one field
+        setFormData({ ...formData, [e.target.name]: e.target.value });
     }
 
     const handleShowPassword = () => {
@@ -35,7 +48,6 @@ export default function Auth() {
     }
 
     const googleSuccess = async (res) => {
-        console.log(res);
         // use ? after res to prevent error if no res object
         const result = res?.profileObj;
         const token = res?.tokenId;
