@@ -5,6 +5,7 @@ import cors from 'cors';
 import dotenv from "dotenv";
 
 import postRoutes from './routes/posts.js';
+import userRoutes from './routes/users.js';
 
 const app = express();
 dotenv.config();
@@ -24,6 +25,7 @@ if (process.env.NODE_ENV === "production") {
 // adding prefix of 'posts' to all posts.js routes
 // MUST SPECIFY ROUTES BELOW CORS
 app.use("/posts", postRoutes);
+app.use("/user", userRoutes);
 
 app.get('/', (req, res) => {
     res.send('Hello')
