@@ -23,12 +23,14 @@ const auth = async (req, res, next) => {
             // set variable equal to user data 
             decodedData = jwt.verify(token, 'test');
 
-            req.userId = decodedData?.id;
+            // req.userId = decodedData?.id;
+            req.userId = decodedData.id;
         } else {
             decodedData = jwt.decode(token);
 
             // 'sub' is Google's name for specific google user id
-            req.userId = decodedData?.sub;
+            // req.userId = decodedData?.sub;
+            req.userId = decodedData.sub;
         }
         next();
     } catch (error) {
