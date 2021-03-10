@@ -54,14 +54,32 @@ export const deletePost = async (req, res) => {
 export const likePost = async (req, res) => {
     // destructure req.params.id, also rename to _id
     const { id: _id } = req.params;
+
+    // check if a user was authenticated w/ userId from middleware 
+    if (!req.userId) return res.json({ message: "Unauthenticated." });
     
-    // check if _id is a valid mongodb ID
+    // check if post's _id is a valid mongodb ID
     if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No post with that ID')
 
-    // set 'new: true' so we receive updated version of the post
-    // spread post (...post) and pass in ID
+    // find post w/ matching id
     const post = await PostMessage.findById(_id);
-    const updatedPost = await PostMessage.findByIdAndUpdate(_id, { likeCount: post.likeCount + 1 }, { new: true })
+    
+    // check if user's id is already in like section or not 
+    const index = post.likes.findIndex((id) => id === String(req.userId));
+
+    // if user is not in the likes array, add them to it, otherwise remove them
+    if (index === -1) {
+        // like the post
+        post.likes.push(req.userId)
+    } else {
+        // unlike the post
+        post.likes = post.likes.filter((id) => id !== String(req.userId));
+    }
+    
+    // set 'new: true' so we receive updated version of the post
+    // const updatedPost = await PostMessage.findByIdAndUpdate(_id, { likeCount: post.likeCount + 1 }, { new: true })
+    const updatedPost = await PostMessage.findByIdAndUpdate(_id, post, { new: true })
+
     
     res.json(updatedPost);
 }
