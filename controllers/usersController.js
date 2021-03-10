@@ -37,6 +37,7 @@ export const signup = async(req, res) => {
         // hash password, second argument is number of salt rounds
         const hashedPassword = await bcrypt.hash(password, 12);
 
+        // create user using User model
         const result = await User.create({ email, password: hashedPassword, name: `${firstName} ${lastName}` });
 
         const token = jwt.sign({ email: result.email, id: result._id }, 'test', { expiresIn: "1h" });
