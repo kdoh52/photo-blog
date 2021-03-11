@@ -8,7 +8,7 @@ import jwt from 'jsonwebtoken';
 // 'next' means to do something then move on
 const auth = async (req, res, next) => {
     try {
-        // get token from frontend
+        // get token from frontend (api folder)
         const token = req.headers.authorization.split(" ")[1];
 
         // checks if token is custom or from Google Auth
