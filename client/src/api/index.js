@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: 'http://localhost:5000' });
+// const API = axios.create({ baseURL: 'http://localhost:5000' });
+const API = axios.create({ baseURL: 'https://photo-blog-jsm.herokuapp.com/' });
 
 // happens before each request, sends token to backend for middleware verification
 API.interceptors.request.use((req) => {
@@ -10,9 +11,6 @@ API.interceptors.request.use((req) => {
 
     return req;
 })
-
-// const url = "http://localhost:5000/posts";
-// const url = "https://photo-blog-jsm.herokuapp.com/posts";
 
 export const fetchPosts = () => API.get('/posts');
 
